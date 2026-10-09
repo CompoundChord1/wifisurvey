@@ -18,11 +18,17 @@ probably be different.
 
 ## What you need
 
+Check this list before you start; each item is needed unless it says otherwise.
+
 - A TP-Link **Omada** controller (used with controller 6.3; written against the 6.2/6.3 web API) and admin access to create a Viewer account and three temporary SSIDs.
   Without Omada the app and helper still work; you just lose the AP-side view.
 - A Mac with **Xcode** and an Apple developer team to build and install the app on your own iPhone. It uses the Access Wi-Fi Information and Hotspot Configuration capabilities; it has only been built with a paid developer account, so a free Apple ID may not be able to sign it.
-- An always-on Linux machine on the same LAN/VLAN as the test SSIDs, with Python 3.
+- An always-on Linux machine on the same LAN/VLAN as the test SSIDs, with Python 3 and SSH access from the Mac.
+  A Raspberry Pi-class box is enough. Running the helper on macOS is untested.
 - About an hour of setup, then 20-minute soaks at your problem spots.
+
+The fiddliest steps are building the Shortcut (about 10 minutes of careful tapping) and signing the app in
+Xcode.
 
 ## Start here
 
@@ -33,6 +39,32 @@ probably be different.
 5. After the survey: `docs/ANALYSIS-PLAYBOOK.md`.
 
 The data format is in `docs/SCHEMA.md`, and a copy ships inside every export.
+
+## Using an AI assistant
+
+An AI coding assistant can help with setup and with the analysis. This toolkit was built and used that way,
+with Claude Code. Open the repo in the assistant. `CLAUDE.md` holds the ground rules: the controller stays
+read-only, the assistant doesn't read secrets, it makes one change at a time, and survey data is private.
+Claude Code loads that file on its own. For any other assistant, point it at the file.
+
+It helps most with:
+
+- **Setup:** deploying the helper, reading `--discover` output and errors, and checking the firewall and
+  VLAN when the app can't reach the helper.
+- **Analysis:** running the analyzer, working through `docs/ANALYSIS-PLAYBOOK.md`, and turning the
+  evidence into a ranked list of causes and a change plan with re-tests. This is the step that most needs a
+  network engineer's eye.
+
+A starting prompt:
+
+> Read CLAUDE.md and docs/ANALYSIS-PLAYBOOK.md. Then analyze ~/Downloads/WiFiSurvey_<name>_<stamp>.zip.
+> Check data quality first. Ask me for the AP locations and the problem spots before ranking causes.
+
+Keep the controller changes in your own hands. The assistant proposes, and you click.
+
+**Privacy:** an export contains your network's MACs, BSSIDs, IPs, SSIDs, AP names and the room names you
+typed. A cloud assistant sends whatever it reads to its provider, so decide whether that's acceptable
+before you hand it an export.
 
 ## The method, if you don't want the code
 
@@ -64,6 +96,8 @@ Debug self-test (Simulator only): `xcrun simctl launch <udid> com.example.WiFiSu
 - iPhone only. Used on an iPhone running iOS 27, and tested in the iOS 26.5 and 27 Simulators; Apple's Wi-Fi APIs and Shortcuts actions change between releases.
 - The helper's Omada client uses the controller's web API with a **Viewer** account, read-only (GET only).
   Endpoint names differ between controller versions; `--discover` shows what yours answers.
+- Exports and analyzer output (`analysis-out/`) hold your own network's identifiers. Scrub them before you
+  attach one to an issue or a post.
 - The test SSIDs share your main network's VLAN so the phone can reach the helper. Remove them afterwards.
 
 ## License

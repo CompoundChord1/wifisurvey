@@ -30,7 +30,7 @@ A copy ships inside every export so whoever analyzes a survey (person or AI assi
   "schema": "wifisurvey/1",
   "id": "UUID", "name": "Whole house", "notes": "evening, TV streaming",
   "createdAt": "2026-10-03T18:02:11Z", "finishedAt": "…|null",
-  "timeZone": "America/Chicago",
+  "timeZone": "UTC",
   "app": {"version": "1.0", "build": "1"},
   "device": {"model": "iPhone17,1", "system": "iOS 26.0"},
   "settings": {

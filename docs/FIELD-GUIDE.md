@@ -5,7 +5,7 @@
 1. **Omada prep:** `docs/OMADA-PREP.md`. Create the Viewer account and the SURVEY-2G / SURVEY-5G / SURVEY-DUAL networks.
 2. **Helper:** `server/README.md`. Deploy it, add the firewall rules, and run `--discover` once.
 3. **Shortcut:** `docs/SHORTCUT.md`. Build "WiFiSurvey Radio" and run it once from the Shortcuts app.
-4. **App:** open `ios/WiFiSurvey.xcodeproj` in **Xcode 27**.
+4. **App:** open `ios/WiFiSurvey.xcodeproj` in **Xcode** (built with Xcode 27; older versions are untested).
    - Select the WiFiSurvey target → **Signing & Capabilities**.
    - Set **Team** to your developer team.
    - Check that **Access Wi-Fi Information** and **Hotspot Configuration** are listed. Add them with **+ Capability** if not.
@@ -75,7 +75,7 @@ Split the survey across 2–3 sessions. It resumes exactly where you left off. S
 1. **Finish & export** → **Finish survey**. This makes the helper take a closing config snapshot, which takes about 8 s.
 2. **Build export** → **Share / AirDrop to the Mac**. The zip lands in ~/Downloads.
 3. Optionally, **Also upload to the server** as a backup.
-4. On the Mac, run `python3 analysis/analyze.py ~/Downloads/WiFiSurvey_….zip` and work through `docs/ANALYSIS-PLAYBOOK.md`. The playbook and `SCHEMA.md` (inside every export) are written so an AI assistant can also follow them.
+4. On the Mac, run `python3 analysis/analyze.py ~/Downloads/WiFiSurvey_….zip` and work through `docs/ANALYSIS-PLAYBOOK.md`. The playbook and `SCHEMA.md` (inside every export) are written so an AI assistant can also follow them (see README → Using an AI assistant). The export holds your network's identifiers; keep it private.
 5. Only after the analysis and re-test:
    - **Remove survey networks from this iPhone**.
    - Turn Auto-Join back on for your home networks.
